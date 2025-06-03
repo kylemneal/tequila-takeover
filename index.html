@@ -25,11 +25,15 @@
       font-size: 4em;
       margin-bottom: 0.5em;
       z-index: 2;
+      text-align: center;
+      width: 100%;
     }
 
     #countdown {
       font-size: 3em;
       z-index: 2;
+      text-align: center;
+      width: 100%;
     }
 
     #glass-container {
@@ -56,6 +60,17 @@
       animation: wave 2s infinite ease-in-out;
     }
 
+    .bubble {
+      position: absolute;
+      bottom: 0;
+      width: 8px;
+      height: 8px;
+      background-color: #fff3b0;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: rise 3s infinite ease-in;
+    }
+
     @keyframes wave {
       0% {
         transform: translateX(0) translateY(0);
@@ -75,6 +90,18 @@
 
       100% {
         transform: translateX(0) translateY(0);
+      }
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: translateY(-150px) scale(0.5);
+        opacity: 0;
       }
     }
 
@@ -118,6 +145,7 @@
   <script>
     const countdownElement = document.getElementById("countdown");
     const tequilaFill = document.getElementById("tequila-fill");
+    const glassContainer = document.getElementById("glass-container");
     const bgMusic = document.getElementById("bg-music");
     const muteBtn = document.getElementById("mute-btn");
     const volumeSlider = document.getElementById("volume-slider");
@@ -172,6 +200,17 @@
     }
 
     document.addEventListener('click', initAudio);
+
+    // Bubble animation
+    function createBubble() {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      bubble.style.left = Math.random() * 90 + '%';
+      bubble.style.animationDuration = 2 + Math.random() * 2 + 's';
+      glassContainer.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 4000);
+    }
+    setInterval(createBubble, 800);
   </script>
 </body>
 
